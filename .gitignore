@@ -1,4 +1,5 @@
 *.pyc
 .idea/
+storage/
 db.sqlite3
 vote-gray-box.egg-info/

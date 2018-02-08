@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% for message in messages %}
+        <div class="message ql-container ql-snow">
+            {{ message.content|safe|escape }}
+        </div>
+    {% endfor %}
+    <form id="message-form" action="{{ action }}" method="POST">
+        {% csrf_token %}
+        <div id="editor-container"></div>
+        <input type="submit" value="Send"></button>
+    </form>
+{% endblock content %}
+{% block script %}
+    <script src="//cdn.quilljs.com/1.3.5/quill.js"></script>
+    <script>
+        var socket = new WebSocket('ws://' + window.location.host + '/users/');
+
+    socket.onopen = function open() {
+        console.log('WebSockets connection created.');
+    };
+
+    if (socket.readyState == WebSocket.OPEN) {
+        socket.onopen();
+    }
+
+    var quill = new Quill('#editor-container', {
+        modules: {
+        toolbar: [
+            [{ header: [1, 2, false] }],
+            ['bold', 'italic', 'underline'],
+            ['image', 'code-block']
+        ]},
+        theme: 'snow'  // or 'bubble'
+    });
+
+    $('#message-form').on('submit', function(e) {
+        e.preventDefault();
+        var form = $(this);
+        var formData = new FormData(this);
+        var content = form.find('.ql-editor').html();
+        console.log(content);
+        formData.append('content', content);
+        $.ajax({
+            url: form.attr('action'),
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(votebox_data) {
+                console.log('submit');
+            }
+        });
+    });
+  </script>
+{% endblock script %}

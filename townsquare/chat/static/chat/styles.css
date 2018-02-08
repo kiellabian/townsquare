@@ -1,0 +1,19 @@
+body {
+    font-family: 'Open Sans'
+}
+
+.all {
+    max-width: 320px;
+    margin: auto;
+}
+
+img {
+    max-width: 300px;
+}
+
+.message {
+    padding: 10px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    margin-bottom: 20px !important;
+}
