@@ -17,3 +17,8 @@ img {
     border-radius: 10px;
     margin-bottom: 20px !important;
 }
+
+.message .ql-editor {
+    padding: 10px;
+    white-space: normal;
+}

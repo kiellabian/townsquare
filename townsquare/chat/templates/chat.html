@@ -2,7 +2,9 @@
 {% block content %}
     {% for message in messages %}
         <div class="message ql-container ql-snow">
-            {{ message.content|safe|escape }}
+            <div class="ql-editor">
+                {{ message.content|safe|escape }}
+            </div>
         </div>
     {% endfor %}
     <form id="message-form" action="{{ action }}" method="POST">
